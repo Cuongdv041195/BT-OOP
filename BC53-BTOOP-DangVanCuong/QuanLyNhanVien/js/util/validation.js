@@ -76,8 +76,8 @@ function kiemTraRong(value, idErr, message) {
     }
   }
 
-  function kiemTraLuongCB(value, idErr, message) {
-    if (value >= 1000000 && value <= 20000000) {
+  function kiemTraLuongCB(value, min, max, idErr, message) {
+    if (value >= Number(min) && value <= Number(max)) {
       document.querySelector(idErr).innerHTML = "";
       return true;
     } else {

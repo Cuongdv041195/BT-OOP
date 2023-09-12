@@ -1,43 +1,7 @@
 var dsnv = new DSNV();
 var dataJson = localStorage.getItem("DSNV");
 if (dataJson !== null) {
-  // dssv.students = JSON.parse(dataJson);
-  // console.log("dssv.students: ", dssv.students);
-
-  // cách 1
-  // for (var i = 0; i < dssv.students.length; i++) {
-  //   // cách viết 1 :
-  //   // var sv = dssv.students[i];
-  //   // sv = new SinhVien(
-  //   //   sv.maSV,
-  //   //   sv.tenSV,
-  //   //   sv.email,
-  //   //   sv.matKhau,
-  //   //   sv.ngaySinh,
-  //   //   sv.khoaHoc,
-  //   //   sv.diemToan,
-  //   //   sv.diemLy,
-  //   //   sv.diemHoa
-  //   // );
-  //   // dssv.students[i] = sv;
-
-  // cách viết 2
-  //   dssv.students[i] = new SinhVien(
-  //     dssv.students[i].maSV,
-  //     dssv.students[i].tenSV,
-  //     dssv.students[i].email,
-  //     dssv.students[i].matKhau,
-  //     dssv.students[i].ngaySinh,
-  //     dssv.students[i].khoaHoc,
-  //     dssv.students[i].diemToan,
-  //     dssv.students[i].diemLy,
-  //     dssv.students[i].diemHoa
-  //   );
-  // }
-
-  // cách 2
   dsnv.nhanVien = JSON.parse(dataJson).map(function (item) {
-    // item tương ứng với từng phần tử trong array
     return new NhanVien(
       item.tkNV,
       item.tenNV,
@@ -85,9 +49,7 @@ function renderTable(listArr) {
         <td>${nhanVien.tkNV}</td>
         <td>${nhanVien.tenNV}</td>
         <td>${nhanVien.email}</td>
-        
         <td>${nhanVien.ngayLam}</td>
-        
         <td>${nhanVien.chucVu}</td>
         <td>${nhanVien.tinhTongLuong()}</td>
         <td>${nhanVien.xepLoai()}</td>
@@ -117,7 +79,6 @@ function resetForm() {
 }
 function themNV() {
   var nv = layThongTinTuForm();
-  console.log("nv: ", nv);
   //Kiểm Tra Tài Khoản Nhân Viên
   var valid = kiemTraRong(
     nv.tkNV,
@@ -186,6 +147,8 @@ function themNV() {
       "Lương Cơ Bản Không Được Để Trống!"
     )&& kiemTraLuongCB(
       nv.luongCoBan,
+      1000000,
+      20000000,
       "#tbLuongCB",
       "Lương Cơ Bản Phải Nhập Từ 1.000.000 đến 20.000.000"
     )
@@ -211,10 +174,7 @@ function themNV() {
     console.log('nv.chucVu: ', nv.chucVu);
   if (valid) {
     dsnv._themNhanVien(nv);
-    // localStorage: nơi lưu trữ (chỉ chấp nhận json) - json là 1 kiểu dữ liệu
-    // JSON.stringify: convert array to json
     var data = JSON.stringify(dsnv.nhanVien);
-    // lưu data xuống localStorage
     localStorage.setItem("DSNV", data);
     resetForm();
     renderTable(dsnv.nhanVien);
@@ -227,10 +187,7 @@ function themNV() {
 }
 function xoaNV(tkNV) {
   dsnv._xoaNhanVien(tkNV);
-    // localStorage: nơi lưu trữ (chỉ chấp nhận json) - json là 1 kiểu dữ liệu
-    // JSON.stringify: convert array to json
     var data = JSON.stringify(dsnv.nhanVien);
-    // lưu data xuống localStorage
     localStorage.setItem("DSNV", data);
   renderTable(dsnv.nhanVien);
 }
@@ -250,19 +207,20 @@ function suaNV(tkNV) {
 }
 function capNhatNhanVien() {
   var nv = layThongTinTuForm();
-  //Kiểm Tra TK Nhân Viên
-  // var valid = kiemTraRong(
-  //   nv.tkNV,
-  //   "#tbTKNV",
-  //   "Tài Khoản Nhân Viên Không Được Để Trống!"
-  // )
+  // Kiểm Tra TK Nhân Viên
+  var valid = kiemTraRong(
+    nv.tkNV,
+    "#tbTKNV",
+    "Tài Khoản Nhân Viên Không Được Để Trống!"
+  )
   // &&
   // kiemTraTrung(
   //   nv.tkNV,
   //   dsnv.nhanVien,
   //   "#tbTKNV",
   //   "Tài Khoản Nhân Viên Đã Tồn Tại"
-  // )&&
+  // )
+  // &&
   // kiemTraDoDai (
   //   nv.tkNV,
   //   4,
@@ -270,8 +228,8 @@ function capNhatNhanVien() {
   //   "#tbTKNV",
   //   "Tài Khoản Nhân Viên Phải Có Độ Dài 4~6 Ký Số!"
   // );
-  //Kiểm Tra Tên
-  var valid =
+  // Kiểm Tra Tên
+   valid =
   kiemTraRong(
     nv.tenNV,
     "#tbTen",
@@ -318,6 +276,8 @@ function capNhatNhanVien() {
       "Lương Cơ Bản Không Được Để Trống!"
     )&& kiemTraLuongCB(
       nv.luongCoBan,
+      1000000,
+      20000000,
       "#tbLuongCB",
       "Lương Cơ Bản Phải Nhập Từ 1.000.000 đến 20.000.000"
     )
@@ -343,10 +303,7 @@ function capNhatNhanVien() {
     console.log('nv.chucVu: ', nv.chucVu);
     if (valid) {
       dsnv._capNhatNhanVien(nv);
-      // localStorage: nơi lưu trữ (chỉ chấp nhận json) - json là 1 kiểu dữ liệu
-      // JSON.stringify: convert array to json
       var data = JSON.stringify(dsnv.nhanVien);
-      // lưu data xuống localStorage
       localStorage.setItem("DSNV", data);
       resetForm();
       renderTable(dsnv.nhanVien);
@@ -367,8 +324,6 @@ getElm("#btnDong").onclick = function(){
 
 //tìm kiếm
 getElm("#btnTimNV").onclick = function () {
-  // toLowerCase: convert text về chữ thường
-  // ?. : Optional chaining (?.)
   var textSearch = document.querySelector("#searchName").value?.toLowerCase();
   
   var result = [];
