@@ -97,7 +97,7 @@ function themNV() {
     4,
     6,
     "#tbTKNV",
-    "Tài Khoản Nhân Viên Phải Có Độ Dài 4~6 Ký Số!"
+    "Tài Khoản Nhân Viên Phải Có Độ Dài 4~6 Chữ Số!"
   );
   //Kiểm Tra Tên
   valid &=
@@ -325,9 +325,7 @@ getElm("#btnDong").onclick = function(){
 //tìm kiếm
 getElm("#btnTimNV").onclick = function () {
   var textSearch = document.querySelector("#searchName").value?.toLowerCase();
-  
   var result = [];
-
   if (textSearch.length > 0) {
     result = dsnv.nhanVien.filter(function (nv) {
       return nv.xepLoai().toLowerCase().includes(textSearch);
@@ -336,6 +334,5 @@ getElm("#btnTimNV").onclick = function () {
     renderTable(result);
   } else {
     renderTable(dsnv.nhanVien);
-    console.log('dsnv.nhanVien: ', dsnv.nhanVien);
   }
 };
