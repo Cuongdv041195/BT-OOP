@@ -121,4 +121,32 @@ function kiemTraRong(value, idErr, message) {
       return false;
     }
   }
+
+  function kiemTraNgay(value,idErr, message) {
+    // Kiểm tra định dạng sử dụng regex
+    var regex = /^\d{2}\/\d{2}\/\d{4}$/;
+    if (!regex.test(value)) {
+      document.querySelector(idErr).innerHTML = message;
+      return false;
+    }
+  
+    // Kiểm tra xem ngày, tháng, năm có hợp lệ hay không
+    var parts = value.split("/");
+    var day = parseInt(parts[1], 10);
+    var month = parseInt(parts[0], 10);
+    var year = parseInt(parts[2], 10);
+  
+    if (year < 1000 || year > 9999 || month == 0 || month > 12) {
+      document.querySelector(idErr).innerHTML = message;
+      return false;
+    }
+  
+    var maxDay = new Date(year, month, 0).getDate();
+    if (day <= 0 || day > maxDay) {
+      document.querySelector(idErr).innerHTML = message;
+      return false;
+    }
+    document.querySelector(idErr).innerHTML = ""
+    return true;
+  }
   
