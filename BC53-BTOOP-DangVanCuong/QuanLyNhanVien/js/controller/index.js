@@ -138,6 +138,10 @@ function themNV() {
     nv.ngayLam,
     "#tbNgay",
     "Ngày Làm không được để trống!"
+   )&& kiemTraNgay(
+    nv.ngayLam,
+    "#tbNgay",
+    "Định dạng ngày làm mm/dd/yyyy!"
    );
     // Kiểm Tra Lương CB
     valid &=
@@ -267,7 +271,12 @@ function capNhatNhanVien() {
     nv.ngayLam,
     "#tbNgay",
     "Ngày Làm không được để trống!"
+   )&& kiemTraNgay(
+    nv.ngayLam,
+    "#tbNgay",
+    "Định dạng ngày làm mm/dd/yyyy!"
    );
+
     // Kiểm Tra Lương CB
     valid &=
     kiemTraRong(
